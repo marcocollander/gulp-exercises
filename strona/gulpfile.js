@@ -1,4 +1,4 @@
-const { src, dest, watch, series, parallel } = require('gulp');
+const { src, dest, watch, series } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const browserSync = require('browser-sync').create();
 const cssnano = require('gulp-cssnano');
@@ -7,8 +7,9 @@ const rename = require('gulp-rename');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
+const sourcemaps = require('gulp-sourcemaps');
 
-const path = {
+const paths = {
   sass: './src/sass/**/*.scss',
   js: './src/js/**/*.js',
   img: 'src/img/*',
@@ -18,7 +19,8 @@ const path = {
 };
 
 function sassCompiler(done) {
-  src(path.sass)
+  src(paths.sass)
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(cssnano())
@@ -27,12 +29,14 @@ function sassCompiler(done) {
         suffix: '.min',
       })
     )
-    .pipe(dest(path.sassDest));
+    .pipe(sourcemaps.write())
+    .pipe(dest(paths.sassDest));
   done();
 }
 
 function javaScript(done) {
-  src(path.js)
+  src(paths.js)
+    .pipe(sourcemaps.init())
     .pipe(
       babel({
         presets: ['@babel/env'],
@@ -40,12 +44,13 @@ function javaScript(done) {
     )
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(path.jsDest));
+    .pipe(sourcemaps.write())
+    .pipe(dest(paths.jsDest));
   done();
 }
 
 function convertImage(done) {
-  src(path.img).pipe(imagemin()).pipe(dest(path.imgDest));
+  src(paths.img).pipe(imagemin()).pipe(dest(paths.imgDest));
   done();
 }
 
@@ -58,8 +63,8 @@ function startBrowserSync(done) {
   done();
 }
 
-watch([path.sass], sassCompiler);
-watch([path.sass, path.js, path.img, './*.html']).on(
+watch([paths.sass], sassCompiler);
+watch([paths.sass, paths.js, paths.img, './*.html']).on(
   'change',
   browserSync.reload
 );

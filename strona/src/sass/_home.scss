@@ -12,6 +12,19 @@
   }
 }
 
+.buttons {
+  &__container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__btn {
+    padding: 10px 30px;
+    letter-spacing: 1px;
+    font-size: 16px;
+  }
+}
+
 .results__form {
   width: 45vw;
   margin: 50px auto;
