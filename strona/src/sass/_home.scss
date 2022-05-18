@@ -1,0 +1,32 @@
+.cards {
+  &__heading {
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  &__box {
+    width: 75vw;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+
+.results__form {
+  width: 45vw;
+  margin: 50px auto;
+
+  &-field {
+    padding: 20px;
+  }
+
+  &-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+
+    label:nth-child(1) input {
+      margin-left: 43px;
+    }
+  }
+}

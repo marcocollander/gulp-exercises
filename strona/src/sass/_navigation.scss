@@ -1,0 +1,14 @@
+.nav {
+  margin-top: 30px;
+
+  &__list {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+
+    &-link {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}

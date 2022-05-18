@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strona</title>
+  <link rel="stylesheet" href="./dist/css/main.min.css">
+</head>
+<body>
+<nav class="nav">
+  <ul class="nav__list">
+    <li class="nav__list-item"><a class="nav__list-link" href="">Strona domowa</a></li>
+    <li class="nav__list-item"><a class="nav__list-link" href="">O mnie</a></li>
+    <li class="nav__list-item"><a class="nav__list-link" href="">Blog</a></li>
+    <li class="nav__list-item"><a class="nav__list-link" href="">Kontakt</a></li>
+  </ul>
+</nav>
+
+<main class="main">
+  <section class="cards">
+    <h1 class="cards__heading">Witaj w grze w trzy karty</h1>
+    <div class="cards__box">
+      <img class="cards__item" src="./dist/img/queen-diamonds.png" alt="karta dama karo" width="200" height="300">
+      <img class="cards__item" src="./dist/img/queen-spades.png" alt="karta dama pik" width="200" height="300">
+      <img class="cards__item" src="./dist/img/queen-hearts.png" alt="karta dama kier" width="200" height="300">
+    </div>
+  </section>
+  <section class="results">
+    <form method="post" action="action.php" class="results__form">
+      <fieldset class="results__form-field">
+        <legend>Wypełnij formularz</legend>
+        <div class="results__form-container">
+          <label for="name">Imię:<input type="text" id="name" name="name"></label><br>
+          <label for="surname">Nazwisko: <input type="text" id="surname" name="surname"></label><br>
+          <label for=""><input type="text" id="" name=""></label><br>
+          <label for="btn"><input type="submit" id="btn" name="btn" value="Wyślij"></label>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+</main>
+<script src="./dist/js/app.min.js"></script>
+</body>
+</html>
