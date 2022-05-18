@@ -8,8 +8,17 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const imagemin = require('gulp-imagemin');
 
+const path = {
+  sass: './src/sass/**/*.scss',
+  js: './src/js/**/*.js',
+  img: 'src/img/*',
+  sassDest: './dist/css',
+  jsDest: './dist/js',
+  imgDest: './dist/img',
+};
+
 function sassCompiler(done) {
-  src('./src/sass/**/*.scss')
+  src(path.sass)
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(cssnano())
@@ -18,12 +27,12 @@ function sassCompiler(done) {
         suffix: '.min',
       })
     )
-    .pipe(dest('./dist/css'));
+    .pipe(dest(path.sassDest));
   done();
 }
 
 function javaScript(done) {
-  src('./src/js/app.js')
+  src(path.js)
     .pipe(
       babel({
         presets: ['@babel/env'],
@@ -31,12 +40,12 @@ function javaScript(done) {
     )
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest('./dist/js'));
+    .pipe(dest(path.jsDest));
   done();
 }
 
 function convertImage(done) {
-  src('src/img/*').pipe(imagemin()).pipe(dest('dist/img'));
+  src(path.img).pipe(imagemin()).pipe(dest(path.imgDest));
   done();
 }
 
@@ -49,13 +58,11 @@ function startBrowserSync(done) {
   done();
 }
 
-watch(['./src/sass/**/*.scss'], sassCompiler);
-watch([
-  './src/sass/**/*.scss',
-  './src/js/**/*.js',
-  './src/img/*',
-  './*.html',
-]).on('change', browserSync.reload);
+watch([path.sass], sassCompiler);
+watch([path.sass, path.js, path.img, './*.html']).on(
+  'change',
+  browserSync.reload
+);
 
 exports.default = series(
   sassCompiler,
